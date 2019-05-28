@@ -153,7 +153,7 @@ function drawAllHearts()
         drawHeart(heartInfo[i][0], heartInfo[i][1], heartInfo[i][2], heartInfo[i][3], heartInfo[i][4]);
 
     //main heart
-    drawHeart(ctx.canvas.width / 2, ctx.canvas.height / 2, ctx.canvas.height / 1.5, 0, gradient);
+    drawHeart(ctx.canvas.width / 2, ctx.canvas.height / 2, ctx.canvas.height / 2, 0, gradient);
 }
 
 function animateHearts()
