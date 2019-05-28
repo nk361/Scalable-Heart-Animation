@@ -141,7 +141,7 @@ function updateHearts()
 }
 
 //generate gradient of equal proportions from top center to bottom center
-let gradient = ctx.createLinearGradient(ctx.canvas.width / 2, ctx.canvas.height / 2 - ctx.canvas.height / 2 / 3.5 * 1.75, ctx.canvas.width / 2, ctx.canvas.height / 2 + ctx.canvas.height / 2 / 3.5 * 1.75);
+let gradient = ctx.createLinearGradient(ctx.canvas.width / 2, ctx.canvas.height / 2 - (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 3.5 * 1.75, ctx.canvas.width / 2, ctx.canvas.height / 2 + (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 3.5 * 1.75);
 
 let colors = ["pink", "orange", "red", "darkred", "indigo", "purple"];//maybe a dropbox for colors could be possible
 for(let i = 0; i < colors.length; i++)
@@ -153,7 +153,7 @@ function drawAllHearts()
         drawHeart(heartInfo[i][0], heartInfo[i][1], heartInfo[i][2], heartInfo[i][3], heartInfo[i][4]);
 
     //main heart
-    drawHeart(ctx.canvas.width / 2, ctx.canvas.height / 2, ctx.canvas.height / 2, 0, gradient);
+    drawHeart(ctx.canvas.width / 2, ctx.canvas.height / 2, ctx.canvas.width / 4 + ctx.canvas.height / 4, 0, gradient);
 }
 
 function animateHearts()
