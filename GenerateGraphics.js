@@ -167,7 +167,7 @@ function drawAllGraphics()
     ctx.font = "" + (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 9 + "px Arial";
     ctx.textAlign = "center";
     ctx.fillStyle = "white";
-    ctx.fillText("KN + NK", ctx.canvas.width / 2, ctx.canvas.height / 2 - ctx.canvas.height / 12);
+    ctx.fillText("KN + NK", ctx.canvas.width / 2, ctx.canvas.height / 2 - (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 7);
     ctx.font = "" + (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 7 + "px Arial";
     ctx.fillText("Happy Birthday!", ctx.canvas.width / 2, ctx.canvas.height - ctx.canvas.height / 12);
 
