@@ -39,81 +39,8 @@ function degreesToRadians(angle)
     return angle * Math.PI / 180;
 }
 
-function drawHeart(x, y, height, angle = 0, color = "darkred")
-{
-    //radius dependant on total height of heart
-    let radius = height / 3.5;
-
-    //diagonal distance from center point to circle centers
-    let hypotenuse = Math.sqrt(Math.pow(radius * 0.75, 2) + Math.pow(radius / 1.1, 2));
-
-    //left circle center
-    let leftCircleCenterX = x + hypotenuse * Math.cos(degreesToRadians(-90 + - 50.5 + angle));
-    let leftCircleCenterY = y + hypotenuse * Math.sin(degreesToRadians(-90 + - 50.5 + angle));
-
-    //point on furthest out of left circle
-    let leftCircleFurthestX = leftCircleCenterX + radius * Math.cos(degreesToRadians(90 + 45 / 0.8 + angle));
-    let leftCircleFurthestY = leftCircleCenterY + radius * Math.sin(degreesToRadians(90 + 45 / 0.8 + angle));
-
-    //right circle center
-    let rightCircleCenterX = x + hypotenuse * Math.cos(degreesToRadians(-90 + 50.5 + angle));
-    let rightCircleCenterY = y + hypotenuse * Math.sin(degreesToRadians(-90 + 50.5 + angle));
-
-    //point on furthest out of right circle
-    let rightCircleFurthestX = rightCircleCenterX + radius * Math.cos(degreesToRadians(45 / 1.2 + angle));
-    let rightCircleFurthestY = rightCircleCenterY + radius * Math.sin(degreesToRadians(45 / 1.2 + angle));
-
-    //the point between the circles to fill up to
-    let topHeartFillX = x + (radius * 0.75) * Math.cos(degreesToRadians(-90 + angle));
-    let topHeartFillY = y + (radius * 0.75) * Math.sin(degreesToRadians(-90 + angle));
-
-    //the bottommost point of the heart
-    let bottomHeartFillX = x + (radius * 1.5) * Math.cos(degreesToRadians(90 + angle));
-    let bottomHeartFillY = y + (radius * 1.5) * Math.sin(degreesToRadians(90 + angle));
-
-    //draw it all out
-    ctx.fillStyle = color;
-
-    //draw the two circles
-    ctx.beginPath();
-    ctx.ellipse(leftCircleCenterX, leftCircleCenterY, radius, radius, 1, 0, 359);
-    ctx.ellipse(rightCircleCenterX, rightCircleCenterY, radius, radius, 1, 0, 359);
-    ctx.fill();
-
-    //draw the bottom filled in part
-    ctx.beginPath();
-    ctx.moveTo(leftCircleFurthestX, leftCircleFurthestY);
-    ctx.lineTo(bottomHeartFillX, bottomHeartFillY);
-    ctx.lineTo(rightCircleFurthestX, rightCircleFurthestY);
-    ctx.lineTo(topHeartFillX, topHeartFillY);
-    ctx.fill();
-}
-
 let randomColorChoices = ["red", "darkred", "purple", "deeppink", "purple", "indigo", "darkorange", "yellow", "blue", "cyan", "white", "forestgreen", "green", "crimson", "darkblue"];
 
-function generateRandoms()
-{
-    //random position keeping hearts on screen by considering their size
-    let randomX = ctx.canvas.height / 15 + Math.random() * (ctx.canvas.width - ctx.canvas.height / 15 * 2);
-
-    //random height with range of the original height - 2/3 to the original height + 1/3
-    let randomHeight = ctx.canvas.height / 15 - ctx.canvas.height / 15 / 1.5 + Math.random() * (ctx.canvas.height / 15);
-
-    //random between 0 and 359
-    let randomAngle = Math.random() * 360;
-
-    //let randomColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
-    let randomColor = randomColorChoices[Math.floor(Math.random() * randomColorChoices.length)];
-
-    //random drop rate from 3 to (ctx.canvas.height / 10) - 1
-    let randomDropRate = 3 + Math.random() * (ctx.canvas.height / 30);
-
-    //random from -drop rate to drop rate to also determine the direction, faster falling hearts will possibly rotate faster
-    let randomRotationRate = -randomDropRate + Math.random() * (randomDropRate * 2 + 1);
-
-    //parameter[1] is the starting height where the heart will be spawned
-    return [randomX, -randomHeight, randomHeight, randomAngle, randomColor, randomDropRate, randomRotationRate];
-}
 
 function clearBackground()
 {
@@ -122,27 +49,11 @@ function clearBackground()
     ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
-//initialize the hearts with info
-let heartInfo = [];
+//create and initialize the hearts with random values
+let hearts = [];
 for(let i = 0; i < ctx.canvas.width / 15; i++)
-    heartInfo.push(generateRandoms());
-
-function updateHearts()
 {
-    for(let i = 0; i < heartInfo.length; i++)
-    {
-        //update y or generate new info
-        if(heartInfo[i][1] + heartInfo[i][5] > ctx.canvas.height + heartInfo[i][2])//if it will be off screen taking into account the heart height
-            heartInfo[i] = generateRandoms();
-        else
-        {
-            //update y
-            heartInfo[i][1] += heartInfo[i][5];
-
-            //update rotation
-            heartInfo[i][3] += heartInfo[i][6];
-        }
-    }
+    hearts.push(new heart().generateRandoms());
 }
 
 //generate gradient of equal proportions from top center to bottom center
@@ -157,11 +68,11 @@ let foreverAlpha = 0;
 function drawAllGraphics()
 {
     //draw all small animated hearts
-    for(let i = 0; i < heartInfo.length; i++)
-        drawHeart(heartInfo[i][0], heartInfo[i][1], heartInfo[i][2], heartInfo[i][3], heartInfo[i][4]);
+    for(let i = 0; i < hearts.length; i++)
+        hearts[i].draw();
 
     //main heart
-    drawHeart(ctx.canvas.width / 2, ctx.canvas.height / 2, ctx.canvas.width / 4 + ctx.canvas.height / 4, 0, gradient);
+    new heart(ctx.canvas.width / 2, ctx.canvas.height / 2, ctx.canvas.width / 4 + ctx.canvas.height / 4, 0, gradient).draw();
 
     //draw text
     ctx.font = "" + (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 9 + "px Arial";
@@ -183,7 +94,10 @@ let frameCount = 0;
 function animateHearts()
 {
     clearBackground();
-    updateHearts();
+
+    for(let i = 0; i < hearts.length; i++)
+        hearts[i].update();
+
     drawAllGraphics();
     if(frameCount <= 150)
     {
