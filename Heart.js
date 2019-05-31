@@ -11,7 +11,7 @@ class heart
         this.rotationRate = rotationRate;
     }
 
-    generateRandoms()
+    generateRandoms(colorChoices)
     {
         //random position keeping hearts on screen by considering their size
         this.x = ctx.canvas.height / 15 / 2 + Math.random() * (ctx.canvas.width - ctx.canvas.height / 15);
@@ -26,7 +26,7 @@ class heart
         this.angle = Math.random() * 360;
 
         //let randomColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
-        this.color = randomColorChoices[Math.floor(Math.random() * randomColorChoices.length)];
+        this.color = colorChoices[Math.floor(Math.random() * colorChoices.length)];
 
         //random drop rate from 3 to (ctx.canvas.height / 10) - 1
         this.dropRate = 3 + Math.random() * (ctx.canvas.height / 30);
@@ -41,7 +41,7 @@ class heart
     {
         //update y or generate new info
         if(this.y + this.dropRate > ctx.canvas.height + this.height)//if it will be off screen taking into account the heart height
-            this.generateRandoms();
+            this.generateRandoms(randomColorChoices);
         else
         {
             //update y

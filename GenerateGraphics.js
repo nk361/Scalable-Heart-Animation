@@ -39,9 +39,6 @@ function degreesToRadians(angle)
     return angle * Math.PI / 180;
 }
 
-let randomColorChoices = ["red", "darkred", "purple", "deeppink", "purple", "indigo", "darkorange", "yellow", "blue", "cyan", "white", "forestgreen", "green", "crimson", "darkblue"];
-
-
 function clearBackground()
 {
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -51,9 +48,10 @@ function clearBackground()
 
 //create and initialize the hearts with random values
 let hearts = [];
+let randomColorChoices = ["red", "darkred", "purple", "deeppink", "purple", "indigo", "darkorange", "yellow", "blue", "cyan", "white", "forestgreen", "green", "crimson", "darkblue"];
 for(let i = 0; i < ctx.canvas.width / 15; i++)
 {
-    hearts.push(new heart().generateRandoms());
+    hearts.push(new heart().generateRandoms(randomColorChoices));
 }
 
 //generate gradient of equal proportions from top center to bottom center
