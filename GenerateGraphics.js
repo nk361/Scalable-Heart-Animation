@@ -76,7 +76,7 @@ function drawAllGraphics()
     ctx.font = "" + (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 9 + "px Arial";
     ctx.textAlign = "center";
     ctx.fillStyle = "white";
-    ctx.fillText("BMcC + NK", ctx.canvas.width / 2, ctx.canvas.height / 2 - (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 7);
+    ctx.fillText("BMcC + NK", ctx.canvas.width / 2 - ctx.measureText("c").width * 1.3, ctx.canvas.height / 2 - (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 7);//I don't know why ctx.measureText("c").width * 1.3 is perfect but it is
     //ctx.font = "" + (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 7 + "px Arial";
     //ctx.fillText("Happy Birthday!", ctx.canvas.width / 2, ctx.canvas.height - ctx.canvas.height / 12);
 
