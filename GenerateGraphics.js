@@ -72,7 +72,7 @@ function drawAllGraphics()
     //main heart
     new heart(ctx.canvas.width / 2, ctx.canvas.height / 2, ctx.canvas.width / 4 + ctx.canvas.height / 4, 0, gradient).draw();
 
-    //draw text
+    /*//draw text
     ctx.font = "" + (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 9 + "px Arial";
     ctx.textAlign = "center";
     ctx.fillStyle = "white";
@@ -84,7 +84,7 @@ function drawAllGraphics()
     ctx.font = "" + (ctx.canvas.width / 4 + ctx.canvas.height / 4) / 9 + "px Arial";
     ctx.globalAlpha = foreverAlpha;
     ctx.fillText("Forever", ctx.canvas.width / 2, ctx.canvas.height / 2);
-    ctx.globalAlpha = 1;
+    ctx.globalAlpha = 1;*/
 }
 
 let frameCount = 0;
